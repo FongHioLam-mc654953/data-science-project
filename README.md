@@ -11,16 +11,21 @@ A complete machine learning learning project for **CISC7204 (Machine Learning)**
 
 ## Datasets & License
 
-All datasets are used for **educational purposes only** in this assignment.
+All datasets are used for **educational purposes only** in this assignment. None of the data is redistributed as an original work: the CSV files are the course-provided extracts from the IBM Developer Skills Network course *DA0101EN — Data Analysis with Python*, and their upstream origin and license are listed below.
 
-| Dataset | Used in | Source |
-| --- | --- | --- |
-| `auto.csv` / `clean_df.csv` / `usedcars.csv` / `module_5_auto.csv` | Module 01–05 | UCI Machine Learning Repository — Automobile Data Set |
-| `laptops.csv` | Module 01–05 | UCI Machine Learning Repository — Laptops Pricing Dataset |
-| `kc_house_data_NaN.csv` | Module 06 (Final Project) | King County House Sales dataset (Kaggle) |
-| `medical_insurance_dataset.csv` | Module 06 (Practice Project) | Medical Insurance Cost dataset (Kaggle) |
+| File(s) | Used in | Upstream source | License |
+| --- | --- | --- | --- |
+| `auto.csv`, `automobileEDA.csv`, `clean_df.csv`, `usedcars.csv`, `module_5_auto.csv` | Module 01–05 | UCI Machine Learning Repository — **Automobile** data set (derived from `imports-85.data`), DOI [10.24432/C5B01C](https://doi.org/10.24432/C5B01C) — <https://archive.ics.uci.edu/dataset/10/automobile> | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| `laptops.csv` (`laptop_pricing_dataset_base.csv` / `_mod1.csv` / `_mod2.csv`) | Module 01–05 | IBM Developer Skills Network course asset, *DA0101EN* — <https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-Coursera/laptop_pricing_dataset_base.csv> (no separate public license is stated by the publisher; course material, coursework use only) | Course-provided asset — all rights with the publisher |
+| `kc_house_data_NaN.csv` | Module 06 (Final Project) | **House Sales in King County, USA** — <https://www.kaggle.com/datasets/harlfoxem/housesalesprediction> (distributed in the course as `FinalModule_Coursera/data/kc_house_data_NaN.csv`) | [CC0 1.0 Public Domain](https://creativecommons.org/publicdomain/zero/1.0/) |
+| `medical_insurance_dataset.csv` | Module 06 (Practice Project) | **Medical Cost Personal Datasets** (`insurance.csv`, from *Machine Learning with R*, Brett Lantz) — <https://www.kaggle.com/datasets/mirichoi0218/insurance> | Database Contents License (DbCL) as listed on the Kaggle dataset page |
 
-Please refer to the original dataset pages for their respective licenses; this repository does not claim ownership of the data.
+**Attribution and third-party notices**
+
+- The UCI Automobile data set is credited to Jeffrey Schlimmer and the UCI Machine Learning Repository; the CC BY 4.0 terms require attribution and do not imply endorsement of this work by UCI.
+- The King County house-sales extract is released under CC0 1.0; attribution is given voluntarily to the original Kaggle uploader.
+- The laptop and medical-insurance CSV files are course assets distributed for classroom use; they are reproduced here only as part of submitted coursework.
+- This repository does not claim ownership of any dataset. If a rights holder objects to the presence of a file, it will be removed on request.
 
 ## Methods & Tools
 
