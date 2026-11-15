@@ -2,6 +2,8 @@
 
 A complete machine learning learning project for **CISC7204 (Machine Learning)**, covering the full workflow: **data import → data cleaning → exploratory data analysis (EDA) → model development → cross-validation & hyper-parameter tuning**, applied to multiple regression tasks.
 
+**Showcase site**: the research questions, the interpreted findings, the charts and the reflection are written up for a general reader at <https://fonghiolam-mc654953.github.io/data-science-portfolio/>, served from the companion repository [`data-science-portfolio`](https://github.com/FongHioLam-mc654953/data-science-portfolio). This repository holds the code, the data and the full result tables; the site holds the narrative and the figures.
+
 ## Research Questions
 
 1. **Car price prediction**: Can we predict the price of a car from its technical specifications (engine size, horsepower, fuel type, body style, etc.)?
