@@ -38,6 +38,7 @@ All datasets are used for **educational purposes only** in this assignment. None
 - **EDA**: correlation analysis & heatmaps, scatter plots, box plots, histograms, pivot tables, Pearson correlation coefficients
 - **Modeling**: simple linear regression, multiple linear regression, polynomial regression (degrees 1–11), scikit-learn `Pipeline`, evaluation with R² and prediction accuracy
 - **Validation & tuning**: `train_test_split`, k-fold cross-validation, `cross_val_predict`, Ridge regression, `GridSearchCV` (alpha tuning), overfitting analysis
+- **Regularisation & baselines**: Lasso regression (L1 penalty, coefficient elimination) benchmarked against a naive mean predictor (`DummyRegressor(strategy="mean")`), both added to the two Module 05 labs as a comparison table
 
 ## Model Performance (R²)
 
@@ -56,6 +57,12 @@ All numbers below were produced by re-executing every notebook in this repositor
 | 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Ridge, `alpha = 10000` (4 features) | 0.841 | test set |
 | 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Polynomial CV, orders 1–5 | 0.053 / −0.027 / 0.052 / −0.995 / −1.376 | cross-validation folds |
 | 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Ridge, `alpha = 10` | 0.301 | test set |
+| 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Mean predictor (naive baseline) | −0.021 | test set |
+| 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Ridge, degree-2 features, `alpha = 10` | 0.542 | test set |
+| 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Lasso, `alpha = 100000` (10 of 28 terms) | 0.750 | test set |
+| 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Mean predictor (naive baseline) | −0.008 | test set |
+| 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Ridge, degree-2 features, `alpha = 1` | 0.423 | test set |
+| 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Lasso, `alpha = 1` (22 of 36 terms) | 0.405 | test set |
 | 06 | `Module06_FinalProject_HousePricing` | SLR on `sqft_living` | 0.493 | full data (in-sample) |
 | 06 | `Module06_FinalProject_HousePricing` | MLR (11 features) | 0.658 | full data (in-sample) |
 | 06 | `Module06_FinalProject_HousePricing` | Polynomial `Pipeline` | 0.751 | full data (in-sample) |
@@ -69,6 +76,7 @@ Notes:
 
 - The gap between the in-sample Module 04/06 scores and the held-out Module 05 scores is the main overfitting signal discussed in **Key Findings**.
 - Negative cross-validation R² in `Module05_Lab02` (orders 4–5) means those polynomial models predict worse than the mean of the target — the basis for choosing the simpler Ridge model.
+- The mean-predictor rows are the floor every model has to beat: a negative R² there simply means "predicting the training average is slightly wrong out of sample", which is what a naive baseline is for. Both notebooks now include a Lasso-vs-Ridge-vs-OLS-vs-mean comparison table (`Table 4` in `Module05_Lab02`, `Table 5` in `Module05_Lab01`) plus a Lasso alpha sweep aligned with the Ridge curves; the Lasso penalties were selected on the held-out split, so those test R² values are optimistic upper bounds rather than nested-CV estimates.
 - Re-running a notebook may change the last digits (random splits, solver tolerances); the figures above are the values reproduced on the environment described in **How to Run**.
 
 ## Key Findings & Limitations
@@ -78,6 +86,7 @@ Notes:
 - Car price shows a strong correlation with engine size and curb weight; highway MPG correlates negatively with price.
 - Higher-degree polynomial regression can improve fit on training data but quickly overfits; cross-validation scores reveal the bias–variance trade-off.
 - Ridge regression with a tuned `alpha` (via GridSearchCV) stabilizes the polynomial models and improves test-set R².
+- Sparsity helps most where the polynomial expansion is widest: on the Auto data set Lasso at `alpha = 100000` keeps only 10 of the 28 degree-2 terms yet scores 0.750 held-out, clearly above both OLS (0.525) and every Ridge setting (best 0.564), whereas on the Laptops data set, with fewer raw attributes, dropping columns gains nothing over shrinking them (Lasso 0.405 vs Ridge 0.423).
 - For laptops, CPU frequency, RAM and storage positively influence price; for King County houses, sqft living area is the dominant price driver; for insurance, being a smoker has the largest impact on charges.
 
 **Limitations**
@@ -100,7 +109,7 @@ Recommended order (each folder is independent and self-contained):
 4. **Module 04 — Model Development**: `Module04_Lab01_Model_Development_UsedCars.ipynb`, `Module04_Lab02_Model_Development_Laptops.ipynb`
    Simple / multiple / polynomial regression, pipelines, model comparison and evaluation.
 5. **Module 05 — Cross-Validation & Ridge**: `Module05_Lab01_CrossValidation_Ridge_Auto.ipynb`, `Module05_Lab02_CrossValidation_Ridge_Laptops.ipynb`
-   Train/test split, cross-validation, overfitting analysis, Ridge + GridSearchCV. Note: `Module05_Lab02` downloads its dataset from an external URL.
+   Train/test split, cross-validation, overfitting analysis, Ridge + GridSearchCV, and a Lasso / mean-baseline comparison (each notebook now ends with a model comparison table and a Lasso alpha sweep saved as `Module05_Lab0*_Lasso_vs_Baseline.png`). Note: `Module05_Lab02` downloads its dataset from an external URL.
 6. **Module 06 — Final & Practice Projects**: `Module06_FinalProject_HousePricing.ipynb`, `Module06_PracticeProject_InsuranceCost.ipynb`
    End-to-end pipelines on King County house prices and medical insurance costs.
 7. **PreliminaryProject_Pair**: `PreliminaryProject_ProposalVerification.ipynb` + `PreliminaryProject_Proposal.docx`
