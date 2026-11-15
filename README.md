@@ -27,6 +27,8 @@ All datasets are used for **educational purposes only** in this assignment. None
 - The laptop and medical-insurance CSV files are course assets distributed for classroom use; they are reproduced here only as part of submitted coursework.
 - This repository does not claim ownership of any dataset. If a rights holder objects to the presence of a file, it will be removed on request.
 
+**Repository licence**: the author's own notebooks, documentation and figures in this repository are released under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) — see [`LICENSE`](LICENSE) for the full legal code. The third-party datasets listed above keep their own upstream terms and are **not** relicensed by this repository.
+
 ## Methods & Tools
 
 - **Libraries**: `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `jupyter`
@@ -34,6 +36,38 @@ All datasets are used for **educational purposes only** in this assignment. None
 - **EDA**: correlation analysis & heatmaps, scatter plots, box plots, histograms, pivot tables, Pearson correlation coefficients
 - **Modeling**: simple linear regression, multiple linear regression, polynomial regression (degrees 1–11), scikit-learn `Pipeline`, evaluation with R² and prediction accuracy
 - **Validation & tuning**: `train_test_split`, k-fold cross-validation, `cross_val_predict`, Ridge regression, `GridSearchCV` (alpha tuning), overfitting analysis
+
+## Model Performance (R²)
+
+All numbers below were produced by re-executing every notebook in this repository on a clean `anaconda3` Python environment (pandas 3.0.3, scikit-learn, Python 3.14) and reading the printed / displayed R² values from each lab. Values are rounded to three decimals. In Module 04 and Module 06 the labs deliberately fit and score on the **full data set** (in-sample, no train/test split), so those R² figures describe fit quality rather than out-of-sample generalisation; the held-out numbers come from Module 05 and from the Module 06 splits.
+
+| Module | Notebook | Model | R² | Evaluation set |
+| --- | --- | --- | --- | --- |
+| 04 | `Module04_Lab01_Model_Development_UsedCars` | SLR on `highway-mpg` | 0.497 | full data (in-sample) |
+| 04 | `Module04_Lab01_Model_Development_UsedCars` | MLR (multiple features) | 0.809 | full data (in-sample) |
+| 04 | `Module04_Lab01_Model_Development_UsedCars` | Polynomial fit | 0.674 | full data (in-sample) |
+| 04 | `Module04_Lab02_Model_Development_Laptops` | SLR | 0.134 | full data (in-sample) |
+| 04 | `Module04_Lab02_Model_Development_Laptops` | MLR | 0.508 | full data (in-sample) |
+| 04 | `Module04_Lab02_Model_Development_Laptops` | Polynomial, degree 1 / 3 | 0.134 / 0.267 | full data (in-sample) |
+| 04 | `Module04_Lab02_Model_Development_Laptops` | Multi-variable polynomial `Pipeline` | 0.633 | full data (in-sample) |
+| 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Ridge, 10-fold CV (mean ± std) | 0.522 ± 0.291 | cross-validation folds |
+| 05 | `Module05_Lab01_CrossValidation_Ridge_Auto` | Ridge, `alpha = 10000` (4 features) | 0.841 | test set |
+| 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Polynomial CV, orders 1–5 | 0.053 / −0.027 / 0.052 / −0.995 / −1.376 | cross-validation folds |
+| 05 | `Module05_Lab02_CrossValidation_Ridge_Laptops` | Ridge, `alpha = 10` | 0.301 | test set |
+| 06 | `Module06_FinalProject_HousePricing` | SLR on `sqft_living` | 0.493 | full data (in-sample) |
+| 06 | `Module06_FinalProject_HousePricing` | MLR (11 features) | 0.658 | full data (in-sample) |
+| 06 | `Module06_FinalProject_HousePricing` | Polynomial `Pipeline` | 0.751 | full data (in-sample) |
+| 06 | `Module06_PracticeProject_InsuranceCost` | SLR on `smoker` | 0.622 | full data (in-sample) |
+| 06 | `Module06_PracticeProject_InsuranceCost` | MLR (6 features) | 0.750 | full data (in-sample) |
+| 06 | `Module06_PracticeProject_InsuranceCost` | Polynomial `Pipeline` | 0.845 | full data (in-sample) |
+| 06 | `Module06_PracticeProject_InsuranceCost` | Ridge, `alpha = 0.1` | 0.676 | test set (20%) |
+| 06 | `Module06_PracticeProject_InsuranceCost` | Polynomial (degree 2) + Ridge | 0.784 | test set (20%) |
+
+Notes:
+
+- The gap between the in-sample Module 04/06 scores and the held-out Module 05 scores is the main overfitting signal discussed in **Key Findings**.
+- Negative cross-validation R² in `Module05_Lab02` (orders 4–5) means those polynomial models predict worse than the mean of the target — the basis for choosing the simpler Ridge model.
+- Re-running a notebook may change the last digits (random splits, solver tolerances); the figures above are the values reproduced on the environment described in **How to Run**.
 
 ## Key Findings & Limitations
 
@@ -86,6 +120,7 @@ jupyter notebook
 
 ```
 ├── README.md
+├── LICENSE              # CC BY 4.0 (author's own work; datasets keep upstream terms)
 ├── requirements.txt
 ├── Module 01/          # data import (auto, laptops)
 ├── Module 02/          # data cleaning
